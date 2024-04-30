@@ -1,0 +1,130 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{comment},
+  keywordstyle= \color{blue}\bfseries,
+  xleftmargin=0zw, %左余白
+  xrightmargin=0zw,%右余白
+  frame=single,%枠線
+  frameround=tttt,%枠線角丸
+}
+\usepackage{fancyhdr} % ヘッダー・フッター
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第2回 変数} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+\section{はじめに}
+\textbf{lesson1}では、\texttt{Hello World}というプログラムを作成しました。
+しかし、このままではプログラムの応用が難しいため、今回は変数について学習します。
+\section{変数とは}
+変数とは、データを格納するための箱のようなものです。
+様々な数値計算や文字列の操作を行う際に、変数を使うことでデータを保持することができます。
+
+\section{変数の型}
+プログラミング言語には\textbf{型}と呼ばれるものが存在します。
+初学者にとっては、型という言葉が難しく感じるかもしれませんが、型とは変数に格納するデータの種類を指します。
+例えば、整数のデータを格納する場合は\textbf{整数型}(int)、文字列のデータを格納する場合は\textbf{文字列型}(str)といった具合です。
+この型によっては値の処理の方法が異なってくるため、型を意識してプログラムを作成することが重要です。
+
+\section{変数の宣言}
+変数を使うためには、変数を宣言する必要があります。
+Pythonにおける変数の宣言は、以下のように行います。
+\begin{lstlisting}[caption=変数の宣言,label=変数の宣言]
+hello = "Hello World"
+\end{lstlisting}
+上記のようにすることで、\texttt{hello}という変数に\texttt{Hello World}という文字列を格納することができます。
+\begin{itembox}[l]{変数の宣言}
+  \textbf{変数名}には、任意の名前をつけることができます。
+  ただし、変数名の先頭に数字を使うことはできません。また、\textbf{予約語}（\texttt{if}、\texttt{for}、\texttt{while}など）は変数名として使うことができません。
+  \textbf{値}には、数値や文字列などを指定することができます。
+\end{itembox}
+
+\section{変数の利用}
+変数を利用することで、プログラムの中でデータを保持することができると言いました。
+では、格納したデータを利用する方法を見ていきましょう。
+\begin{lstlisting}[caption=変数の利用,label=変数の利用]
+hello = "Hello World"
+print(hello)
+\end{lstlisting}
+上記のようにすることで、\texttt{hello}という変数に格納した\texttt{Hello World}という文字列を出力することができます。
+
+現在、\texttt{hello}という変数には\texttt{Hello World}という文字列が格納されています。
+ではここで以下のように変数を再代入すると何が出力されるでしょうか。
+\begin{lstlisting}[caption=変数の再代入,label=変数の再代入]
+hello = "Hello World"
+print(hello)
+hello = "Good Morning"
+print(hello)
+\end{lstlisting}
+答えは、\texttt{Hello World}と\texttt{Good Morning}が順に出力されます。
+つまり、変数の値を書き換えることが可能ということです。
+
+\section{実践}
+\begin{itembox}[l]{問題1}
+  以下のプログラムを作成し、実行してください。
+  \begin{enumerate}
+    \item 変数\texttt{greeting}に文字列\texttt{Hello, World}を格納する。
+    \item \texttt{greeting}を出力する。
+  \end{enumerate}
+\end{itembox}
+\begin{itembox}[l]{問題2}
+  以下のプログラムを作成し、実行してください。
+  \begin{enumerate}
+    \item 変数\texttt{greeting}に文字列\texttt{Hello, World}を格納する。
+    \item 変数\texttt{greeting}に文字列\textbf{空白}を格納する。
+    \item \texttt{greeting}を出力する。
+  \end{enumerate}
+\end{itembox}
+\begin{itembox}[l]{問題3}
+  以下のプログラムを作成し、実行してください。
+  \begin{enumerate}
+    \item 変数\texttt{greeting}に文字列\texttt{Hello, World}を格納する。
+    \item 変数\texttt{greeting2}に文字列\texttt{Goobye, World}を格納する。
+    \item 変数\texttt{greeting}に変数\texttt{greeting2}を格納する。
+    \item \texttt{greeting}を出力する。
+  \end{enumerate}
+\end{itembox}
+
+\end{document}

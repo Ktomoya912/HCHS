@@ -1,0 +1,103 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{comment},
+  keywordstyle= \color{blue}\bfseries,
+  xleftmargin=0zw, %左余白
+  xrightmargin=0zw,%右余白
+  frame=single,%枠線
+  frameround=tttt,%枠線角丸
+}
+\usepackage{fancyhdr} % ヘッダー・フッター
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第3回 計算} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+\section{はじめに}
+\textbf{lesson2}では、
+\textbf{変数}について学習しました。
+今回は、変数を用いて計算を行う方法について学習します。
+\section{計算}
+\subsection{四則演算}
+\begin{table}[H]
+  \centering
+  \caption{四則演算}
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    記号 & 演算 & 説明  & 例     & 結果 \\ \hline
+    +  & 加算 & 足し算 & 1 + 2 & 3  \\ \hline
+    -  & 減算 & 引き算 & 3 - 2 & 1  \\ \hline
+    *  & 乗算 & 掛け算 & 2 * 3 & 6  \\ \hline
+    /  & 除算 & 割り算 & 6 / 3 & 2  \\ \hline
+  \end{tabular}
+\end{table}
+\subsection{変数を使った計算}
+\begin{lstlisting}[caption=変数を使った計算,label=変数を使った計算]
+a = 1
+b = 2
+c = a + b
+print(c)
+\end{lstlisting}
+以上のように演算子を用いることで、変数を使った計算が可能です。
+文字列の場合は、\texttt{+}演算子を用いることで文字列の連結が可能です。
+\begin{lstlisting}[caption=文字列の連結,label=文字列の連結]
+hello = "Hello"
+world = "World"
+sentence = hello + world
+print(sentence)
+\end{lstlisting}
+\section{実践}
+\begin{itembox}[l]{問題}
+  以下のプログラムを作成し、実行してください。\\
+  $f_{0}=0$, $f_{1}=1$とし、$f_{n+2}=f_{n}+f_{n+1}$となる数列はフィボナッチ数列と呼ばれます。
+  このフィボナッチ数列の4番目の数を求めるプログラムを作成してください。
+\end{itembox}
+\begin{itembox}[l]{ヒント}
+  まず、わかっている$f_{0}$と$f_{1}$を変数に代入します。
+  この二変数を用いると、$f_{2}$を求めることができます。
+  これを繰り返していくことで、フィボナッチ数列の4番目の数を求めることができます。
+\end{itembox}
+
+\end{document}
