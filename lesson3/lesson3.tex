@@ -60,17 +60,20 @@
 \textbf{変数}について学習しました。
 今回は、変数を用いて計算を行う方法について学習します。
 \section{計算}
-\subsection{四則演算}
+\subsection{演算子}
 \begin{table}[H]
   \centering
-  \caption{四則演算}
+  \caption{演算子一覧}
   \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    記号 & 演算 & 説明  & 例     & 結果 \\ \hline
-    +  & 加算 & 足し算 & 1 + 2 & 3  \\ \hline
-    -  & 減算 & 引き算 & 3 - 2 & 1  \\ \hline
-    *  & 乗算 & 掛け算 & 2 * 3 & 6  \\ \hline
-    /  & 除算 & 割り算 & 6 / 3 & 2  \\ \hline
+    記号 & 演算     & 説明         & 例      & 結果 \\ \hline
+    +  & 加算     & 足し算        & 1 + 2  & 3  \\ \hline
+    -  & 減算     & 引き算        & 3 - 2  & 1  \\ \hline
+    *  & 乗算     & 掛け算        & 2 * 3  & 6  \\ \hline
+    /  & 除算     & 割り算        & 6 / 3  & 2  \\ \hline
+    \% & 剰余     & 割り算の余り     & 5 \% 2 & 1  \\ \hline
+    // & 切り捨て除算 & 割り算の商を切り捨て & 5 // 2 & 2  \\ \hline
+    ** & 累乗     & べき乗        & 2 ** 3 & 8  \\ \hline
   \end{tabular}
 \end{table}
 \subsection{変数を使った計算}
@@ -80,15 +83,32 @@ b = 2
 c = a + b
 print(c)
 \end{lstlisting}
+\begin{itembox}[l]{結果}
+  3
+\end{itembox}
 以上のように演算子を用いることで、変数を使った計算が可能です。
 文字列の場合は、\texttt{+}演算子を用いることで文字列の連結が可能です。
 \begin{lstlisting}[caption=文字列の連結,label=文字列の連結]
-hello = "Hello"
-world = "World"
-sentence = hello + world
-print(sentence)
+  hello = "Hello"
+  world = "World"
+  sentence = hello + world
+  print(sentence)
+  
 \end{lstlisting}
+\begin{itembox}[l]{結果}
+  HelloWorld
+\end{itembox}
+また、文字列と\texttt{*}演算子を用いることで、文字列の繰り返しが可能です。
+\begin{lstlisting}[caption=文字列の繰り返し,label=文字列の繰り返し]
+  hello = "Hello"
+  sentence = hello * 3
+  print(sentence)
+\end{lstlisting}
+\begin{itembox}[l]{結果}
+  HelloHelloHello
+\end{itembox}
 \section{実践}
+\subsection{フィボナッチ数列}
 \begin{itembox}[l]{問題}
   以下のプログラムを作成し、実行してください。\\
   $f_{0}=0$, $f_{1}=1$とし、$f_{n+2}=f_{n}+f_{n+1}$となる数列はフィボナッチ数列と呼ばれます。
@@ -99,5 +119,39 @@ print(sentence)
   この二変数を用いると、$f_{2}$を求めることができます。
   これを繰り返していくことで、フィボナッチ数列の4番目の数を求めることができます。
 \end{itembox}
-
+\subsection{文字列の操作}
+文字列型にはいくつかの便利な\textbf{関数}が用意されています。
+今回は、\texttt{replace()}関数と\texttt{len()}関数を用います。
+\begin{itembox}[l]{replace()関数}
+  \texttt{replace()}関数は、文字列の中で指定した文字列を別の文字列に置き換えます。
+  \begin{lstlisting}[caption=replace()関数,label=replace()関数]
+    sentence = "Hello, World!"
+    new_sentence = sentence.replace("World", "Python")
+    print(new_sentence)
+  \end{lstlisting}
+  ``World''という文字列が、``Python''に置き換わります。
+  つまり、\texttt{replace()}関数の中で一番最初に指定した文字が
+  二番目に指定した文字に置き換わります。
+  \begin{itembox}[l]{結果}
+    Hello, Python!
+  \end{itembox}
+\end{itembox}
+\begin{itembox}[l]{len()関数}
+  \texttt{len()}関数は、文字列の長さを返します。
+  \begin{lstlisting}[caption=len()関数,label=len()関数]
+    sentence = "Hello, World!"
+    length = len(sentence)
+    print(length)
+  \end{lstlisting}
+  文字列の長さは、空白や記号も含めて数えられます。
+  \begin{itembox}[l]{結果}
+    13
+  \end{itembox}
+\end{itembox}
+以上を踏まえて、以下の問題に取り組んでください。
+\begin{itembox}[l]{問題}
+  以下のプログラムを作成し、実行してください。\\
+  文字列``Hello, World!''の``World''を``Python''に置き換え、
+  その後の文字列の長さを求めるプログラムを作成してください。
+\end{itembox}
 \end{document}

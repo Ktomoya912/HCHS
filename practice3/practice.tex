@@ -72,6 +72,19 @@ please input a number: 1
 \end{lstlisting}
 このように、\texttt{input()}関数で入力された値は文字列型(str)として扱われます。
 そのため、数値として扱いたい場合は、\texttt{int()}関数を使って数値型(int)に変換する必要があります。
+\begin{itembox}[l]{\texttt{int()}関数}
+  \begin{lstlisting}
+  moji = "1"
+  print(moji, type(moji))
+  number = int(moji)
+  print(number, type(number))
+  \end{lstlisting}
+  \begin{lstlisting}
+    # 実行結果
+    1 <class 'str'>
+    1 <class 'int'>
+  \end{lstlisting}
+\end{itembox}
 
 
 \section{演習}
@@ -83,5 +96,18 @@ please input a number: 1
   110.0
 \end{lstlisting}
 
-
+\subsection*{演習2}
+\texttt{input()}関数を使って、ユーザーに2つの数値を入力させ、その2つの数値の和、差、積、商、剰余、切り捨て除算、累乗を表示するプログラムを作成してください。
+\begin{lstlisting}
+  > python practice_2.py
+  please input a number: 10
+  please input a number: 3
+  10 + 3 = 13
+  10 - 3 = 7
+  10 * 3 = 30
+  10 / 3 = 3.3333333333333335
+  10 % 3 = 1
+  10 // 3 = 3
+  10 ** 3 = 1000
+\end{lstlisting}
 \end{document}
