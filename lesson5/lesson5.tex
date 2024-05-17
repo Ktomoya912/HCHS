@@ -1,0 +1,148 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{comment},
+  keywordstyle= \color{blue}\bfseries,
+  xleftmargin=0zw, %左余白
+  xrightmargin=0zw,%右余白
+  frame=single,%枠線
+  frameround=tttt,%枠線角丸
+}
+\usepackage{fancyhdr} % ヘッダー・フッター
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第5回 条件分岐} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+\section{はじめに}
+\textbf{lesson4}では、
+リスト、辞書について学習しました。
+今回の授業では、プログラミングの真骨頂である、条件分岐について学習します。
+この条件分岐をマスターすることによってたいていのプログラムを作成することができるようになります。
+\section{条件分岐}
+条件分岐は、プログラムの中で条件によって処理を変えることができる機能です。
+例えば、与えられた数字が0より大きい場合は「正の数です」と表示し、0より小さい場合は「負の数です」と表示するプログラムを考えてみましょう。
+
+\subsection{if文}
+英語のifは「もし」という意味です。if文は、もし条件が成り立つ場合に処理を行うための構文です。
+if文の基本的な構文は以下の通りです。
+\begin{lstlisting}[caption=if文の基本構文]
+if 条件式:
+    # 条件が成り立った場合の処理
+else:
+    # 条件が成り立たなかった場合の処理
+\end{lstlisting}
+elseの部分は書く必要がない場合もあります。その場合はelse以下の処理は行われません。
+\subsection{条件式}
+条件式は、if文の後に書かれる条件を表す式です。
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|} \hline
+    条件式  & 意味    & 例        \\ \hline
+    ==   & 等しい   & x == 5   \\
+    !=   & 等しくない & x != 5   \\
+    $>$  & より大きい & x $>$ 5  \\
+    $<$  & より小さい & x $<$ 5  \\
+    $>=$ & 以上    & x $>=$ 5 \\
+    $<=$ & 以下    & x $<=$ 5 \\ \hline
+  \end{tabular}
+  \caption{条件式の例}
+\end{table}
+つまり、上の表に則って考えると、例えば「xが5より大きい場合」という条件式は``\texttt{x $>$ 5}''となります。
+\subsection*{例題}
+それでは、条件分岐を使って「与えられた数字が0より大きい場合は「正の数です」と表示し、0より小さい場合は「負の数です」と表示するプログラムを作成してみましょう。
+\begin{lstlisting}[caption=条件分岐の例,label=条件分岐の例]
+x = 5
+if x > 0:
+    print("正の数です")
+else:
+    print("負の数です")
+\end{lstlisting}
+
+\subsection{elif文}
+if文の後に書くことで、複数の条件を指定することができます。
+\begin{lstlisting}[caption=elif文の基本構文]
+if 条件式1:
+    # 条件1が成り立った場合の処理
+elif 条件式2:
+    # 条件2が成り立った場合の処理
+else:
+    # どの条件も成り立たなかった場合の処理
+\end{lstlisting}
+この処理は、まず条件式1を判定し、成り立った場合は条件1の処理を行います。
+条件1が成り立たなかった場合は、条件式2を判定し、成り立った場合は条件2の処理を行います。
+このようにして、順々に条件式の判定を行っていくことが可能です。
+
+\subsection{複数の条件式}
+複数の条件式を指定する場合、andやorを使って条件式を組み合わせることができます。
+例えば、xが5より大きく10より小さい場合を判定する場合、``\texttt{x $>$ 5 and x $<$ 10}''と書くことができます。
+これは、xが5より大きいかつ10より小さい場合に処理を行うという意味です。
+\texttt{and}は両方の条件が成り立つ場合に処理を行い、\texttt{or}はどちらか一方の条件が成り立つ場合に処理を行います。
+また、条件式の否定を行いたい場合は\texttt{not}を使います。
+\subsection*{例題}
+与えられた数字が1より大きいまたは、-1より小さい場合は「True」と表示し、それ以外の場合は「False」と表示するプログラムを作成してみましょう。
+\begin{lstlisting}[caption=複数の条件式の例,label=複数の条件式の例]
+x = 5
+if x > 1 or x < -1:
+    print("True")
+else:
+    print("False")
+\end{lstlisting}
+
+\section{課題}
+\begin{enumerate}
+  \item 与えられた数字が偶数の場合は「偶数です」と表示し、奇数の場合は「奇数です」と表示するプログラムを作成してください。
+  \item 与えられた数字が3の倍数の場合は「3の倍数です」と表示し、3の倍数でない場合は「3の倍数ではありません」と表示するプログラムを作成してください。
+  \item \texttt{input()}関数を使って、ユーザーに数字を入力させ、その数字が正の数か負の数かを判定するプログラムを作成してください。
+  \item \texttt{input()}関数を使って、ユーザーに数字を入力させ、入力された値が100より小さい場合は「足りません」と表示し、100以上の場合は与えられた数字から100を引いた値を表示するようにしてください。
+\end{enumerate}
+
+\subsection*{ヒント}
+\begin{enumerate}
+  \item 偶数は2で割り切れる数です。つまり、与えられた数字を2で割った余りが0の場合は偶数です。
+  \item 上記の問題と同様です。
+  \item \texttt{input()}関数の返り値は文字列型です。数値型に変換するためには\texttt{int()}関数を使います。
+  \item 上記の問題と同様です。
+\end{enumerate}
+\end{document}
