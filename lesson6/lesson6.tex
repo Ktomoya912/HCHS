@@ -1,0 +1,180 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex,
+  }
+\usepackage{fancyhdr} % ヘッダー・フッター
+\renewcommand{\lstlistingname}{ソースコード}
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第6回 繰り返し} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+\section{はじめに}
+\textbf{lesson5}では、
+条件分岐について学習しました。
+今回の授業では、繰り返しについて学習します。
+たくさんのデータを処理する際に、繰り返しを使うことで、
+効率的にプログラムを書くことができます。
+
+\section{繰り返し}
+\subsection{for文}
+\textbf{for文}は、指定した回数だけ処理を繰り返す制御構造です。
+\begin{lstlisting}[caption=for文の構文]
+  for [variable] in [sequence]:
+    [process]
+\end{lstlisting}
+\textbf{variable}には、繰り返し処理で使用する変数を指定します。
+\textbf{sequence}には、リストやrange()関数を指定します。
+\textbf{process}には、繰り返し処理を記述します。
+
+\begin{lstlisting}[caption=5回Hello，World!を表示する例,label=helloloop]
+  for i in range(5):
+    print("Hello, World!")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=5回足し算を行う例,label=plusloop]
+  ans = 0
+  for i in range(5):
+    ans = ans + i
+  print(ans) # 10
+\end{lstlisting}
+
+\begin{lstlisting}[caption=リストの中身を表示する例,label=listloop]
+  my_list = ["apple", "banana", "cherry"]
+  for i in my_list:
+    print(i)
+\end{lstlisting}
+
+\subsection{break}
+\textbf{break}は、繰り返し処理を途中で終了する制御構造です。
+\begin{lstlisting}[caption=breakの例,label=break]
+  for i in range(10):
+    if i == 5:
+      break
+    print(i)
+\end{lstlisting}
+上のソースコードは、本来であれば0から9まで表示されるはずですが、
+繰り返しが行われる中で、\texttt{i}が5になると
+途中の\texttt{if}文に反応し、\texttt{break}が実行されます。
+つまり、この繰り返しでは、0から4までの数字が表示されます。
+
+\subsection{continue}
+\textbf{continue}は、繰り返し処理の途中で、次の繰り返し処理に移る制御構造です。
+\begin{lstlisting}[caption=continueの例,label=continue]
+  for i in range(10):
+    if i == 5:
+      continue
+    print(i)
+\end{lstlisting}
+上のソースコードは、本来であれば0から9まで順に表示されるはずですが、
+繰り返しが行われる中で、\texttt{i}が5になると
+途中の\texttt{if}文に反応し、\texttt{continue}が実行されます。
+つまり、この繰り返しでは、5だけ表示されません。
+
+\subsection{while文}
+\textbf{while文}は、条件が真の間、処理を繰り返す制御構造です。
+\begin{lstlisting}[caption=while文の構文]
+  while [condition]:
+    [process]
+\end{lstlisting}
+主な使われ方としては無限ループとしての利用があります。
+\begin{lstlisting}[caption=無限ループの例,label=infinite]
+  while True:
+    print("Hello, World!")
+\end{lstlisting}
+上記のコードは、強制終了しない限り、無限に``Hello, World!''を表示し続けます。
+
+\begin{lstlisting}[caption=while文の例,label=while]
+  i = 0
+  while i < 5:
+    print(i)
+    i += 1  
+\end{lstlisting}
+\texttt{i}が5より小さい間、\texttt{i}を表示し、\texttt{i}に1を加えるという処理を繰り返します。
+つまり、\texttt{i}が5になった時点で繰り返し処理が終了します。
+
+\section{練習問題}
+\begin{enumerate}
+  \item \texttt{for}文を使って、1から10までの数字を表示するプログラムを作成してください。
+  \item \texttt{for}文を使って、1から10までの数字の合計を求めるプログラムを作成してください。
+  \item \texttt{for}文を使って、リスト\texttt{[1, 2, 3, 4, 5]}の中身を表示するプログラムを作成してください。
+  \item \texttt{for}文を使って、リスト\texttt{[1, 2, 3, 4, 5]}の中身を合計するプログラムを作成してください。
+  \item \texttt{while}文を使って、1から10までの数字を表示するプログラムを作成してください。
+  \item \texttt{while}文を使って、1から10までの数字の合計を求めるプログラムを作成してください。
+  \item \texttt{while}文を使って、リスト\texttt{[1, 2, 3, 4, 5]}の中身を表示するプログラムを作成してください。
+\end{enumerate}
+
+\subsection{入力が正しいかどうかを判定するプログラム}
+次回の授業で自動販売機のプログラムを作成します。
+そこでユーザーからの入力を受け付けるプログラムを作成します。
+\begin{lstlisting}[caption=入力が正しいかどうかを判定するプログラム,label=check]
+while True: # 無限ループ
+  num = input(" 数字を入力してください: ") # ユーザーからの入力を受け付ける
+  if num.isdigit(): # 入力が数字かどうかを判定
+    break # 数字の場合は繰り返しを終了
+  elif num == "exit":
+    print(" 終了します")
+    exit() # プログラムを終了する関数
+  else:
+    print(" 数字を入力してください")
+print(num)
+\end{lstlisting}
+上記のプログラムは、ユーザーからの入力が数字かどうかを判定し、数字であればその値を表示します。
+数字でない場合であるかつ、``exit''と入力された場合は、プログラムを終了します。
+それ以外の場合は、``数字を入力してください''と表示します。
+\end{document}
