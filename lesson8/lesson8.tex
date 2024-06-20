@@ -1,0 +1,163 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex,
+  }
+\usepackage{fancyhdr} % ヘッダー・フッター
+\renewcommand{\lstlistingname}{ソースコード}
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第7回 自動販売機を作ってみよう} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+
+\section{機能}
+自動販売機の機能は以下の通りです。
+\begin{itemize}
+  \item お金を投入できる。
+  \item 商品を購入できる。
+  \item おつりをもらえる。
+  \item 商品がなくなったら、在庫がないことを表示する。
+  \item お金が足りない場合、お金が足りないことを表示する。
+  \item NEW! 複数の商品の中から選択できるようにする。
+\end{itemize}
+
+\section{用いる関数}
+\begin{itemize}
+  \item \texttt{print()}：文字列を出力する関数
+  \item \texttt{input()}：ユーザーからの入力を受け取る関数
+  \item \texttt{int()}：文字列を整数に変換する関数
+  \item \texttt{[str].isdigit()}: 文字列が数字かどうかを判定する関数
+  \item \texttt{len()}: リストの要素数を取得する関数
+  \item \texttt{enumerate()}: リストのインデックスと要素を取得する関数
+\end{itemize}
+
+\subsection*{print()}
+\subsubsection*{引数}
+printの括弧の中身には、出力したい文字列を入れることができます。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=print()の使い方, label=print()]
+  print("Hello, World!")
+\end{lstlisting}
+
+\subsection*{input()}
+\subsubsection*{引数}
+inputの括弧の中身には、ユーザーに表示するメッセージを入れることができます。
+\subsubsection*{返り値}
+ユーザーが入力した文字列を返します。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=input()の使い方, label=input()]
+  name = input("Enter your name：")
+  print(name)
+\end{lstlisting}
+
+\subsection*{int()}
+\subsubsection*{引数}
+intの括弧の中身には、整数に変換したい文字列を入れることができます。
+ただし、文字列が数字でない場合はエラーが発生します。
+\subsubsection*{返り値}
+文字列を整数に変換した値を返します。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=int()の使い方, label=int()]
+  num = int("100")
+  print(type("100")) # <class 'str'>
+  print(type(num)) # <class 'int'>
+\end{lstlisting}
+
+\subsection*{isdigit()}
+\subsubsection*{返り値}
+文字列が数字の場合はTrue、数字でない場合はFalseを返します。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=isdigit()の使い方, label=isdigit()]
+  print("100".isdigit()) # True
+  print("abc".isdigit()) # False
+\end{lstlisting}
+
+\subsection*{len()}
+\subsubsection*{引数}
+lenの括弧の中身には、リストや文字列などの要素数を取得したいものを入れることができます。
+\subsubsection*{返り値}
+リストや文字列の要素数を返します。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=len()の使い方, label=len()]
+  print(len("Hello")) # 5
+  print(len([1, 2, 3])) # 3
+\end{lstlisting}
+
+\subsection*{enumerate()}
+\subsubsection*{引数}
+enumerateの括弧の中身には、リストや文字列などの要素とインデックスを取得したいものを入れることができます。
+\subsubsection*{返り値}
+リストや文字列のインデックスと要素を取得します。
+\subsubsection*{使い方}
+\begin{lstlisting}[caption=enumerate()の使い方, label=enumerate()]
+  for i, item in enumerate(["apple", "banana", "orange"]):
+    print(i, item)
+\end{lstlisting}
+
+
+
+\section{用いる変数}
+\begin{itemize}
+  \item \texttt{money}：投入されたお金の合計
+  \item \texttt{items}：商品のリスト
+  \item \texttt{user\_input\_money}：ユーザーが入力したお金
+  \item \texttt{user\_input\_id}：ユーザーが入力した商品のID
+  \item \texttt{item\_id}: 商品のID
+\end{itemize}
+
+\end{document}
