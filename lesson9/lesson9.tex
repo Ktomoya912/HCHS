@@ -1,0 +1,112 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex,
+  }
+\usepackage{fancyhdr} % ヘッダー・フッター
+\renewcommand{\lstlistingname}{ソースコード}
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第9回 例外処理} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+
+\section{例外処理の使い道}
+以下のコードを実行してみましょう。
+\begin{lstlisting}[caption=例外処理の使い道,label=exception]
+  hello = "Hello, World!"
+  number = int(hello)
+  print(number)
+\end{lstlisting}
+このコードを実行すると、以下のようなエラーが出力されます。
+\begin{lstlisting}[caption=エラー,label=error]
+  ValueError: invalid literal for int() with base 10: 'Hello, World!'
+\end{lstlisting}
+このようなエラーが出力されると、プログラムが停止してしまいます。しかし、例外処理を使うことで、エラーが出力されてもプログラムを停止させずに処理を続けることができます。
+\section{例外処理の書き方}
+例外処理の書き方は以下の通りです。
+\begin{lstlisting}[caption=例外処理の書き方,label=exception]
+  try:
+    hello = "Hello, World!"
+    number = int(hello)
+    print(number)
+  except ValueError:
+    print("エラーが発生しました")
+  print("処理が終了しました")
+\end{lstlisting}
+このコードを実行すると、以下のようにエラーが出力されずに処理が続行されます。
+\begin{lstlisting}[caption=エラー,label=error]
+  エラーが発生しました
+  処理が終了しました
+\end{lstlisting}
+
+\section{例外処理の種類}
+例外処理には以下の種類があります。
+\begin{itemize}
+  \item \texttt{ValueError}：値が不正な場合に発生するエラー
+  \item \texttt{ZeroDivisionError}：0で割った場合に発生するエラー
+  \item \texttt{IndexError}：インデックスが範囲外の場合に発生するエラー
+  \item \texttt{TypeError}：型が不正な場合に発生するエラー
+  \item \texttt{KeyError}：辞書のキーが不正な場合に発生するエラー
+  \item \texttt{FileNotFoundError}：ファイルが見つからない場合に発生するエラー
+  \item \texttt{ModuleNotFoundError}：モジュールが見つからない場合に発生するエラー
+\end{itemize}
+
+\section{前回の課題}
+前回の課題の部分を例外処理を使って書き換えてみましょう。
+
+\end{document}
