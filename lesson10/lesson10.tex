@@ -1,0 +1,177 @@
+\documentclass[a4paper,titlepage,dvipdfmx]{jarticle}
+\usepackage{caption}
+% 数式用
+\usepackage{longtable}
+\usepackage{amsmath, amsfonts}  % 数式用
+\usepackage{bm} % 数式中の太字
+\usepackage{amssymb} % 記号
+% 画像用
+\usepackage{float} % 画像の挿入箇所を固定
+\usepackage[dvipdfmx]{graphicx} % 画像挿入用
+\usepackage{wrapfig} % 画像の周りに本文を流し込み
+% ページレイアウト
+\usepackage{here} % 画像を強制的に出力
+\usepackage{url} % URLリンク
+\usepackage{hyperref} % 
+\hypersetup{
+  colorlinks=false, % リンクに色をつけない設定
+  bookmarks=true, % 以下ブックマークに関する設定
+  bookmarksnumbered=true, % ブックマークに節番号などをつけるか
+  pdfborder={0 0 0}, % 枠なし
+  bookmarkstype=toc % 目次情報のブックマークを作る
+}
+\usepackage{multirow} % 表で行結合
+\usepackage[margin=20truemm]{geometry} %余白調整
+% 文字装飾
+\usepackage{color} % 文字色
+\usepackage[table,xcdraw]{xcolor} % 表の色
+\usepackage{ascmac} % 丸枠
+\usepackage{fancybox} % 丸枠
+\usepackage{booktabs} % 表の横線を調整するためのパッケージ
+\usepackage{tabularx} % 表の幅を調整するためのパッケージ
+\usepackage{tcolorbox} %ボックスやフレームを作成するためのパッケージ
+% プログラム用
+\definecolor{comment}{rgb}{0.52,0.60,0.00} %green
+\usepackage{listings,jvlisting} %日本語のコメントアウトをする場合jvlisting（もしくはjlisting）が必要
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex,
+  }
+\usepackage{fancyhdr} % ヘッダー・フッター
+\renewcommand{\lstlistingname}{ソースコード}
+\pagestyle{fancy}
+    % \lhead{専門チャレンジ(PCプログラミング)} %ヘッダ左
+    \chead{第10回 関数} %ヘッダ中央
+    \rhead{授業資料} %ヘッダ右
+    \cfoot{\thepage} %フッタ中央．ページ番号を表示
+    \rfoot{\today} %フッタ右
+    \renewcommand{\headrulewidth}{0.4pt} %ヘッダの線の太さ
+    \renewcommand{\footrulewidth}{0.4pt} %フッタの線の太さ
+    
+\begin{document}
+
+\section{はじめに}
+みなさんがなんとなく使っていた\texttt{print()}や\texttt{input()}というものは、
+「関数」と呼ばれるものです。
+
+この関数を呼び出すことによって、関数それぞれが提供している機能を利用することができます。
+また、新たに自分独自の関数を作成し、利用することもできます。
+今回の授業では、自分で関数を定義し、利用してもらいます。
+\section{関数の定義方法}
+関数の定義方法はいたって簡単です。
+\begin{lstlisting}[caption=関数の定義,label=関数の定義]
+def 関数名(引数):
+  処理
+  return 戻り値
+\end{lstlisting}
+\texttt{print()}関数とあてはめながらそれぞれについて解説していきます。
+
+\subsection*{関数名}
+関数名は、その関数が何をするかを表す名前です。
+\texttt{print()}関数でいうなれば、関数名は\texttt{print}です。
+\subsection*{引数}
+引数は、関数に渡す値のことです。
+\texttt{print()}関数でいうなれば、引数は表示したい文字列や数字です。
+\subsection*{処理}
+関数が行う処理です。
+\texttt{print()}関数内では、引数に渡された値を画面に表示する処理が行われます。
+\subsection*{戻り値}
+関数が返す値のことです。
+\texttt{print()}関数は、引数に渡された値を表示するだけなので、戻り値はありません。
+
+\section{関数の例}
+二つの値の足し算を行って、その結果を返す関数を定義してみましょう。
+\begin{lstlisting}[caption=関数の例,label=関数の例]
+def add(a, b):
+  return a + b
+
+result = add(3, 5)
+print(result)
+\end{lstlisting}
+\texttt{add()}という関数は、引数\texttt{a}と\texttt{b}を受け取り、その和を返します。
+今回では、\texttt{a}に3、\texttt{b}に5が渡されているので、\texttt{add()}関数は8を返します。
+
+\section{関数の利点}
+今までの授業では、自分で関数を定義せずに一つ一つの機能を列挙して、実装していました。
+しかし、関数を使うことで、同じ機能を使いたいというときに、その機能をまとめておくことができます。
+また、関数を使うことで、プログラムの見通しを良くすることができます。
+
+\section{課題}
+\subsection*{課題1}
+関数に二つの引数、\texttt{a}と\texttt{b}を受け取り、その差を返す関数\texttt{sub()}を定義してください。
+\begin{lstlisting}[caption=課題1,label=課題1]
+# ここに関数sub()を定義してください
+
+result = sub(10, 3)
+print(result) # 7
+\end{lstlisting}
+
+\subsection*{課題2}
+関数に二つの引数、\texttt{text}と\texttt{times}を受け取り、\texttt{text}を\texttt{times}回繰り返した文字列を返す関数\texttt{repeat()}を定義してください。
+\begin{lstlisting}[caption=課題2,label=課題2]
+# ここに関数repeat()を定義してください
+
+result = repeat("Hello", 3)
+print(result) # HelloHelloHello
+\end{lstlisting}
+\subsubsection*{ヒント}
+この問題には解法がいくつかあります。
+\begin{itemize}
+  \item \texttt{for}文を使って\texttt{times}回繰り返す
+  \item \texttt{text}を\texttt{times}倍する
+\end{itemize}
+一番上の方法は単純に行うと改行が挟まれてしまうため、\texttt{print()}関数に、\texttt{end=""}という引数を渡すことで改行を抑制することができます。
+
+\subsection*{応用課題}
+フィボナッチ数列を求める関数\texttt{fib()}を定義してください。
+引数には、求めたいフィボナッチ数列の項数を受け取ります。
+
+\subsubsection*{フィボナッチ数列の式}
+フィボナッチ数列は以下の式で求めることができます。
+\begin{align}
+  F(0) & = 0                                \\
+  F(1) & = 1                                \\
+  F(n) & = F(n-1) + F(n-2) \quad (n \geq 2)
+\end{align}
+\begin{lstlisting}[caption=応用課題,label=応用課題]
+# ここに関数fib()を定義してください
+
+result = fib(10)
+print(result) # 55
+\end{lstlisting}
+\subsubsection*{ヒント}
+関数の返り値に関数自身を使うことで、再帰的に関数を呼び出すことができます。
+\begin{lstlisting}[caption=再帰関数,label=再帰関数]
+def func(n):
+  print(n)
+  if n == 0:
+    return 0
+  return func(n-1)
+\end{lstlisting}
+この関数を外側で引数10を与えて呼び出すと、
+\begin{lstlisting}[caption=再帰関数の呼び出し,label=再帰関数の呼び出し]
+func(10)
+# 10
+# 9
+# 8
+...
+# 0
+\end{lstlisting}
+というように、10から0までの数字が順番に表示されます。
+
+\end{document}
