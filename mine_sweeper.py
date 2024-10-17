@@ -1,4 +1,5 @@
 import random
+import time
 
 
 class TextColor:
@@ -15,7 +16,8 @@ class TextColor:
 
 
 class Tile:
-    def __init__(self):
+    def __init__(self, idx=0):
+        self.index = idx
         self.is_opend = False
         self.is_mine = False
         self.is_flagged = False
@@ -31,6 +33,9 @@ class MineSweeper:
         self.turn = 0
         self.board = [Tile() for _ in range(width * height)]
         self.is_game_over = False
+        self.is_win = False
+        self.start_time = time.time()
+
         self.generate_board()
 
     def print_board(self, is_debug=False):
@@ -63,6 +68,9 @@ class MineSweeper:
     def print_remaining_mines(self):
         print(f"Remaining Mines: {self.num_flags}")
 
+    def get_elapsed_time(self):
+        return round(time.time() - self.start_time, 2)
+
     def generate_board(self):
         self.is_game_over = False
         self.num_flags = self.num_mines
@@ -73,25 +81,27 @@ class MineSweeper:
             self.set_adjacent_mines(mine)
 
     def set_adjacent_mines(self, index: int):
-        if not self.is_tile_left(index):
-            self.board[index - 1].adjacent_mines += 1
-        if not self.is_tile_right(index):
-            self.board[index + 1].adjacent_mines += 1
-        if not self.is_tile_top(index):
-            self.board[index - self.width].adjacent_mines += 1
-        if not self.is_tile_bottom(index):
-            self.board[index + self.width].adjacent_mines += 1
-        if not self.is_tile_left(index) and not self.is_tile_top(index):
-            self.board[index - self.width - 1].adjacent_mines += 1
-        if not self.is_tile_right(index) and not self.is_tile_top(index):
-            self.board[index - self.width + 1].adjacent_mines += 1
-        if not self.is_tile_left(index) and not self.is_tile_bottom(index):
-            self.board[index + self.width - 1].adjacent_mines += 1
-        if not self.is_tile_right(index) and not self.is_tile_bottom(index):
-            self.board[index + self.width + 1].adjacent_mines += 1
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if i == 0 and j == 0:
+                    continue
+                if self.is_tile_left(index) and j == -1:
+                    continue
+                if self.is_tile_right(index) and j == 1:
+                    continue
+                if self.is_tile_top(index) and i == -1:
+                    continue
+                if self.is_tile_bottom(index) and i == 1:
+                    continue
+                if self.board[index + i * self.width + j].is_mine:
+                    continue
+                self.board[index + i * self.width + j].adjacent_mines += 1
 
     def open_tile(self, x, y):
         index = self.width * y + x
+        self.open_tile_by_index(index)
+
+    def open_tile_by_index(self, index):
         if self.board[index].is_opend or self.board[index].is_flagged:
             return
         if self.board[index].is_mine:
@@ -100,12 +110,18 @@ class MineSweeper:
         if self.board[index].adjacent_mines == 0:
             self.open_zero_tiles(index)
         self.board[index].is_opend = True
+        self.is_win = (
+            len([tile for tile in self.board if not tile.is_opend]) == self.num_mines
+        )
 
     def flag_tile(self, x, y):
         if self.num_flags == 0:
             print("No more flags!")
             return
         index = self.width * y + x
+        self.flag_tile_by_index(index)
+
+    def flag_tile_by_index(self, index):
         self.board[index].is_flagged = not self.board[index].is_flagged
         if self.board[index].is_flagged:
             self.num_flags -= 1
@@ -169,7 +185,7 @@ class MineSweeper:
                     print("Game Over!")
                     self.print_board(is_debug=True)
                     break
-                if all([tile.is_opend or tile.is_mine for tile in self.board]):
+                if self.is_win:
                     print("You Win!")
                     self.print_board(is_debug=True)
                     break
