@@ -41,7 +41,7 @@ class State:
     def put_new_tile(self):
         empty_tiles = [i for i, x in enumerate(self.board) if x == 0]
         if empty_tiles:
-            self.board[random.choice(empty_tiles)] = 2 if random.random() < 0.9 else 4
+            self.board[random.choice(empty_tiles)] = 1 if random.random() < 0.9 else 2
 
     def move(self, direction: str):
         if direction == "left":
